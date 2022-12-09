@@ -20,12 +20,26 @@
 
 
 /*--------------------- Constants --------------------------------*/
+const winningCombos = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6]
+]
+
+  
 
 
 /*----------------- Variables (state) ----------------------------*/
-let board = [null, null, null, null, null, null, null, null, null,]
-console.log(board)
-let turn = 1, winner = false, tie = false
+
+let board = [null, null, null, null, null, null, null, null, null] 
+let turn = 1 
+let winner = false
+let tie = false
 console.log(turn, winner, tie)
 
 
@@ -38,30 +52,72 @@ const messageEl = document.getElementById('message')
 console.log(messageEl)
 
 /*------------------ Event Listeners -----------------------------*/
-
+document.querySelector('section').addEventListener('click', handleClick)
 
 
 /*--------------------- Functions --------------------------------*/
 function init() {
+  // board = [null, null, null, null, null, null, null, null, null]
   console.log('This is the init function')
   
   
   render()
-}
+  }
 init()
 
 function render() {
-
-}
+  updateBoard()
+  updateMessage()
+  handleClick()
+  }
 
 function updateBoard() {
-  board.forEach(function(el, idx) {
-    squareEls[idx]
-    console.log(squareEls[idx])
+  board.forEach(function(el,idx) {
+    let square = squareEls[idx]
+    if (board[idx] === null){
+      square.textContent = 'null'
+    } else if (board[idx] === 1) {
+      square.textContent = 'A'
+    } else if (board[idx] === -1) {
+      square.textContent = 'B'
+    }
   })
   
-}
-console.log(updateBoard())
+  }
+
+function updateMessage() {
+  if (winner === false && tie === false) {
+    messageEl.textContent = `It is player ${turn}'s turn `
+  } else if (winner === false && tie === true) {
+    messageEl.textContent = "It's a tie!"
+  } else {
+    messageEl.textContent = `Congrats! Player ${turn} won!`
+  }
+  }
+
+function handleClick(evt) {
+  console.log('yay')
+  //obtain the index of the square clicked
+  const sqIdx = evt.target.id
+  console.log(sqIdx)
+  if (squareEls === sqIdx.value) {
+    return
+  } if (winner = true) {
+    return
+  }
+  }
+
+  function placePiece(idx) {
+    board[idx] = turn
+  }
+  
+
+
+
+
+
+
+  
 
 
 
