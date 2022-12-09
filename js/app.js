@@ -50,14 +50,15 @@ const squareEls = document.querySelectorAll('.sqr')
 console.log(squareEls);
 const messageEl = document.getElementById('message')
 console.log(messageEl)
+const resetBtnEl = document.querySelector('button')
 
 /*------------------ Event Listeners -----------------------------*/
 document.querySelector('section').addEventListener('click', handleClick)
-
+resetBtnEl.addEventListener('click', init)
 
 /*--------------------- Functions --------------------------------*/
 function init() {
-  // board = [null, null, null, null, null, null, null, null, null]
+  board = [null, null, null, null, null, null, null, null, null]
   console.log('This is the init function')
   
   
@@ -68,14 +69,15 @@ init()
 function render() {
   updateBoard()
   updateMessage()
-  handleClick()
+  
+  
   }
 
 function updateBoard() {
   board.forEach(function(el,idx) {
     let square = squareEls[idx]
     if (board[idx] === null){
-      square.textContent = 'null'
+      square.textContent = ''
     } else if (board[idx] === 1) {
       square.textContent = 'A'
     } else if (board[idx] === -1) {
@@ -96,23 +98,61 @@ function updateMessage() {
   }
 
 function handleClick(evt) {
-  console.log('yay')
+  if (winner === true) {
+    return
+  }
+  console.log(evt.target)
   //obtain the index of the square clicked
   const sqIdx = evt.target.id
-  console.log(sqIdx)
-  if (squareEls === sqIdx.value) {
-    return
-  } if (winner = true) {
+  let sliced = sqIdx.slice(sqIdx.length - 1)
+  console.log(sliced)
+  if (board[sliced] === null) {
+    placePiece(sliced)
+    checkForWinner()
+    checkForTie()
+    switchPlayerTurn()
+    render()
+  } if (winner === true) {
     return
   }
   }
 
-  function placePiece(idx) {
+function placePiece(idx) {
     board[idx] = turn
+    console.log(board)
+    
   }
   
+function checkForTie() {
+  board.forEach(function(element){
+    if (element === null) {
+      tie = false
+    } else {
+      tie = true
+    }
+  })
+}
 
+function checkForWinner() {
+  winningCombos.forEach(function(arr){
+    let winning = 0
+    arr.forEach(function(el){
+      winning += board[el]
+    })
+    console.log('check winner', winning)
+    if (Math.abs(winning) === 3) { 
+        winner = true
+    }
+  })
+}
 
+function switchPlayerTurn(){
+  if (winner === true){
+    return
+  } else {
+    turn = turn * -1
+  }
+}
 
 
 
