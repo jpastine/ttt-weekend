@@ -80,9 +80,9 @@ function updateBoard() {
     if (board[idx] === null){
       square.textContent = ''
     } else if (board[idx] === 1) {
-      square.textContent = 'A'
+      square.textContent = 'X'
     } else if (board[idx] === -1) {
-      square.textContent = 'B'
+      square.textContent = 'O'
     }
   })
   
