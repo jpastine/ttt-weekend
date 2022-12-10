@@ -59,6 +59,7 @@ resetBtnEl.addEventListener('click', init)
 /*--------------------- Functions --------------------------------*/
 function init() {
   board = [null, null, null, null, null, null, null, null, null]
+  turn = 1
   console.log('This is the init function')
   
   
@@ -88,12 +89,18 @@ function updateBoard() {
   }
 
 function updateMessage() {
+  let name
+  if (turn === 1) {
+    name = '1'
+  }  else {
+    name = '2'
+  }
   if (winner === false && tie === false) {
-    messageEl.textContent = `It is player ${turn}'s turn `
+    messageEl.textContent = `It is player ${name}'s turn `
   } else if (winner === false && tie === true) {
     messageEl.textContent = "It's a tie!"
   } else {
-    messageEl.textContent = `Congrats! Player ${turn} won!`
+    messageEl.textContent = `Congrats! Player ${name} won!`
   }
   }
 
