@@ -31,7 +31,7 @@ const winningCombos = [
   [2, 4, 6]
 ]
 
-  
+
 
 
 /*----------------- Variables (state) ----------------------------*/
@@ -57,23 +57,23 @@ document.querySelector('section').addEventListener('click', handleClick)
 resetBtnEl.addEventListener('click', init)
 
 /*--------------------- Functions --------------------------------*/
+
+
 function init() {
   board = [null, null, null, null, null, null, null, null, null]
   turn = 1
   console.log('This is the init function')
-  
-  
+  winner = false
+  tie = false
   render()
-  }
+}
 init()
 
 function render() {
   updateBoard()
   updateMessage()
+}
   
-  
-  }
-
 function updateBoard() {
   board.forEach(function(el,idx) {
     let square = squareEls[idx]
@@ -85,24 +85,24 @@ function updateBoard() {
       square.textContent = 'O'
     }
   })
+}
   
-  }
-
 function updateMessage() {
   let name
   if (turn === 1) {
-    name = '1'
+    name = 'X'
   }  else {
-    name = '2'
+    name = 'O'
   }
   if (winner === false && tie === false) {
-    messageEl.textContent = `It is player ${name}'s turn `
+    messageEl.textContent = `It is ${name}'s turn `
   } else if (winner === false && tie === true) {
     messageEl.textContent = "It's a tie!"
   } else {
-    messageEl.textContent = `Congrats! Player ${name} won!`
+    messageEl.textContent = `Congrats! ${name} won!`
+    confetti.start(2000)
   }
-  }
+}
 
 function handleClick(evt) {
   if (winner === true) {
@@ -122,22 +122,19 @@ function handleClick(evt) {
   } if (winner === true) {
     return
   }
-  }
+}
 
 function placePiece(idx) {
     board[idx] = turn
     console.log(board)
     
-  }
+}
+
   
 function checkForTie() {
-  board.forEach(function(element){
-    if (element === null) {
-      tie = false
-    } else {
-      tie = true
-    }
-  })
+  if (!board.includes(null)) {
+    tie = true
+  }
 }
 
 function checkForWinner() {
@@ -164,7 +161,18 @@ function switchPlayerTurn(){
 
 
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
